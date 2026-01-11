@@ -1,8 +1,41 @@
+import arcjet, { detectBot, shield, slidingWindow, tokenBucket } from '@arcjet/next';
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
-
+import { env } from './data/env/server';
 const isPublicRoute = createRouteMatcher(['/sign-in(.*)', "/"])
 
+
+// arcjet
+const aj = arcjet({
+  key: env.ARCJET_KEY!, // Get your site key from https://app.arcjet.com
+  rules: [
+    shield({ mode: "LIVE" }),
+    detectBot({
+      mode: "LIVE", 
+      allow: [
+        "CATEGORY:SEARCH_ENGINE", 
+        "CATEGORY:MONITOR", 
+        "CATEGORY:PREVIEW", 
+      ],
+    }),
+    slidingWindow({
+      mode:"LIVE",
+      interval: "1m",
+      max: 100,
+    }),
+    tokenBucket({
+      mode: "LIVE",
+      refillRate: 5, 
+      interval: 10, 
+      capacity: 10, 
+    }),
+  ],
+});
 export default clerkMiddleware(async (auth, req) => {
+  // const decision  = await aj.protect(req)
+  const decision = await aj.protect(req, { requested: 1 })
+  if(decision.isDenied()){
+    return new Response("ARCJET ERROR " , {status : 403})
+  }
   if (!isPublicRoute(req)) {
     await auth.protect()
   }
