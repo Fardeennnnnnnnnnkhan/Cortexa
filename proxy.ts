@@ -1,7 +1,7 @@
 import arcjet, { detectBot, shield, slidingWindow, tokenBucket } from '@arcjet/next';
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { env } from './data/env/server';
-const isPublicRoute = createRouteMatcher(['/sign-in(.*)', "/"])
+const isPublicRoute = createRouteMatcher(['/sign-in(.*)', "/" , "/api/webhooks(.*)"])
 
 
 // arcjet
