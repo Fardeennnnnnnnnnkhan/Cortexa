@@ -1,4 +1,4 @@
-import { HumeClient } from "hume";
+import { HumeClient, Hume } from "hume";
 
 export async function fetchChatMessages(humeChatId: string) {
   "use cache"
@@ -9,7 +9,7 @@ export async function fetchChatMessages(humeChatId: string) {
   }
 
   const client = new HumeClient({ apiKey })
-  const allChatEvents: unknown[] = []
+  const allChatEvents: Hume.empathicVoice.ReturnChatEvent[] = []
   const chatEventsIterator = await client.empathicVoice.chats.listChatEvents(
     humeChatId,
     { pageNumber: 0, pageSize: 100 }
