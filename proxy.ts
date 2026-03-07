@@ -1,7 +1,7 @@
 import arcjet, { detectBot, shield, slidingWindow, tokenBucket } from '@arcjet/next';
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { env } from './data/env/server';
-const isPublicRoute = createRouteMatcher(['/sign-in(.*)', "/" , "/api/webhooks(.*)"])
+const isPublicRoute = createRouteMatcher(['/sign-in(.*)', "/", "/api/webhooks(.*)", "/arcjet-error(.*)"])
 
 
 // arcjet
@@ -10,31 +10,31 @@ const aj = arcjet({
   rules: [
     shield({ mode: "LIVE" }),
     detectBot({
-      mode: "LIVE", 
+      mode: "DRY_RUN", // Switched to DRY_RUN to monitor instead of block
       allow: [
-        "CATEGORY:SEARCH_ENGINE", 
-        "CATEGORY:MONITOR", 
-        "CATEGORY:PREVIEW", 
+        "CATEGORY:SEARCH_ENGINE",
+        "CATEGORY:MONITOR",
+        "CATEGORY:PREVIEW",
       ],
     }),
     slidingWindow({
-      mode:"LIVE",
+      mode: "LIVE",
       interval: "1m",
-      max: 100,
+      max: 1000, // Significantly increased from 200
     }),
     tokenBucket({
       mode: "LIVE",
-      refillRate: 5, 
-      interval: 10, 
-      capacity: 10, 
+      refillRate: 100, // Increased from 5
+      interval: 10,
+      capacity: 200, // Increased from 10
     }),
   ],
 });
 export default clerkMiddleware(async (auth, req) => {
   // const decision  = await aj.protect(req)
   const decision = await aj.protect(req, { requested: 1 })
-  if(decision.isDenied()){
-    return new Response("ARCJET ERROR " , {status : 403})
+  if (decision.isDenied()) {
+    return Response.redirect(new URL("/arcjet-error", req.url))
   }
   if (!isPublicRoute(req)) {
     await auth.protect()

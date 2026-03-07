@@ -1,12 +1,15 @@
 "use client";
 
-import { getUser } from "@/features/users/actions";
+import { getUser, syncUser } from "@/features/users/actions";
 import { Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export  function OnBoardingClient({userId} : {userId : string}) {
     const router = useRouter()
+  useEffect(() => {
+    syncUser()
+  }, [])
   useEffect(() => {
     const intervalId = setInterval( async() => {
       const user = await getUser(userId);

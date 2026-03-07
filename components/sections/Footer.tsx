@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Github, Twitter, Linkedin, Mail, ArrowRight, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -12,148 +13,143 @@ const Footer = () => {
     {
       title: "Product",
       links: [
-        { label: "AI Interviews", href: "#" },
+        { label: "AI Interviews", href: "#features" },
+        { label: "Resume Analysis", href: "#features" },
+        { label: "How it Works", href: "#how-it-works" },
+        { label: "Pricing", href: "#" },
         { label: "Roadmap", href: "#" },
-        { label: "Resume Analysis", href: "#" },
-        { label: "ATS Check", href: "#" },
       ],
     },
     {
-      title: "Company",
+      title: "Legals",
       links: [
-        { label: "About Us", href: "#" },
-        { label: "Blog", href: "#" },
-        { label: "Careers", href: "#", badge: "Hiring" },
-        { label: "Contact", href: "#" },
+        { label: "Terms", href: "#" },
+        { label: "Privacy", href: "#" },
       ],
     },
     {
-      title: "Resources",
+      title: "Social",
       links: [
-        { label: "Documentation", href: "#" },
-        { label: "Help Center", href: "#" },
-        { label: "Privacy Policy", href: "#" },
-        { label: "Terms of Service", href: "#" },
+        { label: "X (Twitter)", href: "https://twitter.com" },
+        { label: "Instagram", href: "#" },
+        { label: "YouTube", href: "#" },
+        { label: "LinkedIn", href: "https://www.linkedin.com/in/fardeen-khan-077661290/" },
       ],
     },
-  ];
-
-  const socials = [
-    { icon: Github, href: "https://github.com", label: "Github" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
   ];
 
   return (
-    <footer className="relative border-t border-border/40 bg-background/80 backdrop-blur-md pt-24 pb-12 overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-      <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute -top-24 -right-24 w-96 h-96 bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
-          {/* Brand Column */}
-          <div className="md:col-span-4 space-y-6">
-            <Link href="/" className="flex items-center gap-2 group w-fit">
-              <span className="text-3xl font-bold tracking-tighter bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent group-hover:to-primary transition-all duration-500">
-                Cortexa
-              </span>
-            </Link>
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-sm">
-              Empowering the next generation of professionals with AI-driven interview intelligence and career optimization.
+    <footer className="relative bg-background border-t border-border/40 pt-20 pb-10 overflow-hidden">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-10 gap-12 mb-24">
+          {/* Brand/Navigation placeholder */}
+          <div className="md:col-span-2 space-y-4">
+            <h4 className="text-sm font-bold text-foreground">Cortexa</h4>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-[200px]">
+              Empowering candidates with AI-driven intelligence for the world's most elite technical interviews.
             </p>
-            <div className="flex items-center gap-4">
-              {socials.map((social) => (
-                <Link
-                  key={social.label}
-                  href={social.href}
-                  className="p-2.5 rounded-full bg-muted/50 border border-border/50 text-muted-foreground hover:text-primary hover:border-primary/30 hover:bg-primary/5 transition-all duration-300"
-                  aria-label={social.label}
-                >
-                  <social.icon className="w-5 h-5" />
-                </Link>
-              ))}
-            </div>
           </div>
 
-          {/* Links Columns */}
-          <div className="md:col-span-4 grid grid-cols-2 sm:grid-cols-3 gap-8">
-            {footerLinks.map((section) => (
-              <div key={section.title} className="space-y-5">
-                <h4 className="text-sm font-bold uppercase tracking-widest text-foreground/90">
-                  {section.title}
-                </h4>
-                <ul className="space-y-3">
-                  {section.links.map((link) => (
-                    <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        className="text-muted-foreground hover:text-foreground flex items-center gap-1.5 transition-colors group"
-                      >
-                        {link.label}
-                        {link.badge && (
-                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-                            {link.badge}
-                          </span>
-                        )}
-                        <ExternalLink className="w-3 h-3 opacity-0 -translate-y-0.5 group-hover:opacity-100 group-hover:translate-y-0 transition-all" />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          {/* Newsletter Column */}
-          <div className="md:col-span-4 lg:pl-12">
-            <div className="p-8 rounded-3xl bg-muted/30 border border-border/50 backdrop-blur-sm relative overflow-hidden group">
-              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-700">
-                <Mail className="w-16 h-16" />
-              </div>
-              <h4 className="text-xl font-bold mb-3">Stay in the loop</h4>
-              <p className="text-sm text-muted-foreground mb-6">
-                Get the latest insights on AI careers and product updates delivered to your inbox.
-              </p>
-              <div className="space-y-3">
-                <div className="relative">
-                  <Input 
-                    type="email" 
-                    placeholder="name@company.com" 
-                    className="h-12 bg-background/50 border-border/50 rounded-xl focus-visible:ring-primary/20 pl-4"
-                  />
-                </div>
-                <Button className="w-full h-12 rounded-xl font-semibold shadow-lg shadow-primary/10 group">
-                  Subscribe
-                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-                <p className="text-[10px] text-center text-muted-foreground pt-2">
-                  No spam. Unsubscribe at any time.
-                </p>
-              </div>
+          {/* Links Grid */}
+          {footerLinks.map((section) => (
+            <div key={section.title} className="md:col-span-2 space-y-4">
+              <h4 className="text-sm font-medium text-muted-foreground/60">{section.title}</h4>
+              <ul className="space-y-2">
+                {section.links.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-sm font-medium text-foreground hover:text-primary transition-colors duration-300"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
+          ))}
+
+          {/* Contact/Newsletter Column */}
+          <div className="md:col-span-2 space-y-4">
+            <div className="space-y-1">
+              <h4 className="text-sm font-bold text-foreground">Contact</h4>
+              <p className="text-xs text-muted-foreground">The latest updates about Cortexa.</p>
+            </div>
+            
+            <form 
+              onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.currentTarget);
+                const email = formData.get('email');
+                const subject = encodeURIComponent("Interest in Cortexa");
+                window.location.href = `mailto:fardeen14122004@gmail.com?subject=${subject}&body=Hello, I'm interested in Cortexa. My email is ${email}`;
+              }}
+              className="relative flex items-center group"
+            >
+              <input 
+                name="email"
+                type="email"
+                placeholder="jane@example.com"
+                required
+                className="w-full h-10 bg-muted/30 border border-border/50 px-4 pr-10 rounded-sm text-xs focus:outline-none focus:border-primary/50 transition-all text-foreground"
+              />
+              <button 
+                type="submit" 
+                className="absolute right-1 size-8 bg-primary hover:bg-primary/90 flex items-center justify-center rounded-sm transition-all group-hover:scale-105 active:scale-95 text-white"
+              >
+                <ArrowRight className="size-4" />
+              </button>
+            </form>
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="pt-12 border-t border-border/40 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span>© {currentYear} Cortexa AI Labs. </span>
-            <span className="hidden md:inline text-border/60">|</span>
-            <span>All rights reserved.</span>
-          </div>
+        {/* Massive Branding Bottom */}
+        <div className="relative pt-20 border-t border-border/10">
+          <motion.div 
+            className="flex flex-col items-start select-none group cursor-default relative pb-8 px-4"
+            initial="initial"
+            whileHover="hover"
+          >
+             {/* Simple Background Glow */}
+             <div className="absolute inset-0 bg-primary/5 rounded-full blur-[120px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
+             
+             <motion.h2 
+               variants={{
+                 initial: { y: 0 },
+                 hover: { 
+                   y: -15,
+                   transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } 
+                 }
+               }}
+               className="text-[22vw] font-[1000] leading-[0.8] tracking-tighter flex items-center relative z-10 text-foreground dark:text-white group-hover:text-primary transition-colors duration-700"
+             >
+                Cortexa
+                <motion.span 
+                  variants={{
+                    initial: { rotate: 0 },
+                    hover: { 
+                      rotate: 45,
+                      transition: { duration: 0.8, ease: "anticipate" }
+                    }
+                  }}
+                  className="text-primary italic inline-block origin-center ml-[0.02em] pb-[0.1em]"
+                >
+                  *
+                </motion.span>
+             </motion.h2>
+
+             {/* Minimalist modern underline effect */}
+             <div className="h-2 w-0 group-hover:w-[20%] bg-primary transition-all duration-1000 mt-[-2vw] ml-4 opacity-50" />
+          </motion.div>
           
-          <div className="flex items-center gap-8">
-            <Link href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-              Trust & Security
-            </Link>
-            <Link href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-              Status
-            </Link>
-            <Link href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-              Terms
-            </Link>
+          <div className="flex flex-col md:flex-row justify-between items-center mt-10 gap-6">
+            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">
+              © {currentYear} Cortexa  • Built for the top 1%
+            </p>
+            <div className="flex items-center gap-8">
+               <Link href="#" className="text-[10px] font-bold text-muted-foreground hover:text-foreground transition-all uppercase tracking-widest">Trust</Link>
+               <Link href="#" className="text-[10px] font-bold text-muted-foreground hover:text-foreground transition-all uppercase tracking-widest">Status</Link>
+            </div>
           </div>
         </div>
       </div>
