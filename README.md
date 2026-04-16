@@ -84,10 +84,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 ---
 
-## 📜 License
-
-This project is licensed under the MIT License.
 
 ---
 
-*Built with ❤️ by the Cortexa Team*
+*Built with ❤️ by Fardeen Khan*
